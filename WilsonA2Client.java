@@ -1,6 +1,4 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {
@@ -14,12 +12,13 @@ public class Client {
             // Print "Sending public key"
             System.out.println("Sending public key");
 
-            // Send data to the server (in this case, simulating sending a public key)
-            String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
-                               // Your public key content goes here
-                               "-----END PUBLIC KEY-----";
+            // Read the content of the .asc public key file
+            String publicKeyFilePath = "C:\Users\gmw10\Desktop\my_public_key.asc";
+            String publicKeyContent = readPublicKey(publicKeyFilePath);
+
+            // Send the public key content to the server
             OutputStream output = socket.getOutputStream();
-            output.write(publicKey.getBytes());
+            output.write(publicKeyContent.getBytes());
 
             // Receive a response from the server (if any)
             InputStream input = socket.getInputStream();
@@ -33,5 +32,17 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Helper method to read the content of the .asc public key file
+    private static String readPublicKey(String filePath) throws IOException {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        }
+        return content.toString();
     }
 }
