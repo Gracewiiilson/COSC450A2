@@ -1,5 +1,6 @@
 # COSC450A2
 
+CHECK OFF STEPS WHEN COMPLETED 
 
 COSC 450				Assignment 2					Fall 2023
 Due Friday Nov 17, 11:59 pm. This is a group assignment.
@@ -9,17 +10,19 @@ Do all GPG4Win operations below manually.
 2.	The server listens on port 12123 for a TCP connection from the client (use Java sockets)
 3.	The client prints “Sending public key”
 4.	The client sends its .asc public key file to the server over the socket
-5.	The server receives the public key file, prints and saves it
-6.	The server prints “Received public key”
-7.	The server prints “Sending public key”
-8.	The server sends its .asc public key file to the client over the socket
-9.	The client receives the public key file, prints and saves it
-10.	The client prints “Received public key”
-11.	The client prints “Enter message” and reads the message entered by the user
-12.	The client saves the message in a file message.txt
-13.	Use GPG4Win to sign and encrypt the message.txt file
-14.	The client prints “Sending message”
-15.	The client sends the signed encrypted message to the server
-16.	The server receives the signed encrypted file, prints and saves it
-17.	The server prints “Received message”
-18.	Use GPG4Win to decrypt/verify the signed encrypted message file and save the decrypted verified file as results.txt.
+
+   NEED TO DO:
+6.	The server receives the public key file, prints and saves it
+7.	The server prints “Received public key”
+8.	The server prints “Sending public key”
+9.	The server sends its .asc public key file to the client over the socket
+10.	The client receives the public key file, prints and saves it
+11.	The client prints “Received public key”
+12.	The client prints “Enter message” and reads the message entered by the user
+13.	The client saves the message in a file message.txt
+14.	Use GPG4Win to sign and encrypt the message.txt file
+15.	The client prints “Sending message”
+16.	The client sends the signed encrypted message to the server
+17.	The server receives the signed encrypted file, prints and saves it
+18.	The server prints “Received message”
+19.	Use GPG4Win to decrypt/verify the signed encrypted message file and save the decrypted verified file as results.txt.
