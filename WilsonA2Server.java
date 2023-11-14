@@ -24,7 +24,7 @@ public class Server {
                         String receivedData = new String(buffer, 0, bytesRead);
                         System.out.println("Received from client: " + receivedData);
 
-                        // Process the received data or perform other actions
+                        // Process the received data or perform other actions 
                     }
 
                     // Send a response back to the client
