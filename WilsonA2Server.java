@@ -34,6 +34,9 @@ public class Server {
                         writer.write(publicKey);
                     }
 
+                    // Print "Received public key"
+                    System.out.println("Received public key");
+
                     // Send a response back to the client (optional)
                     String response = "Public key received successfully!";
                     OutputStream output = socket.getOutputStream();
