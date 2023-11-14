@@ -11,12 +11,17 @@ public class Client {
         try (Socket socket = new Socket(serverAddress, portNumber)) {
             System.out.println("Connected to server: " + socket.getInetAddress());
 
-            // Send data to the server
-            String message = "Hello from the client!";
-            OutputStream output = socket.getOutputStream();
-            output.write(message.getBytes());
+            // Print "Sending public key"
+            System.out.println("Sending public key");
 
-            // Receive a response from the server
+            // Send data to the server (in this case, simulating sending a public key)
+            String publicKey = "-----BEGIN PUBLIC KEY-----\n" +
+                               // Your public key content goes here
+                               "-----END PUBLIC KEY-----";
+            OutputStream output = socket.getOutputStream();
+            output.write(publicKey.getBytes());
+
+            // Receive a response from the server (if any)
             InputStream input = socket.getInputStream();
             byte[] buffer = new byte[1024];
             int bytesRead = input.read(buffer);
@@ -30,4 +35,3 @@ public class Client {
         }
     }
 }
-
