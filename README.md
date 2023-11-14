@@ -11,7 +11,7 @@ Do all GPG4Win operations below manually.
 3.	The client prints “Sending public key”
 4.	The client sends its .asc public key file to the server over the socket
 
-   NEED TO DO:
+   NEED TO DO
 6.	The server receives the public key file, prints and saves it
 7.	The server prints “Received public key”
 8.	The server prints “Sending public key”
