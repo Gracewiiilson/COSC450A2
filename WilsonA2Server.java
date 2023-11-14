@@ -1,6 +1,4 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,20 +13,29 @@ public class Server {
                 try (Socket socket = serverSocket.accept()) {
                     System.out.println("Client connected: " + socket.getInetAddress());
 
-                    // Read data from the client
+                    // Read data from the client (assuming it's the public key)
                     InputStream input = socket.getInputStream();
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     byte[] buffer = new byte[1024];
-                    int bytesRead = input.read(buffer);
+                    int bytesRead;
 
-                    if (bytesRead > 0) {
-                        String receivedData = new String(buffer, 0, bytesRead);
-                        System.out.println("Received from client: " + receivedData);
-
-                        // Process the received data or perform other actions 
+                    while ((bytesRead = input.read(buffer)) != -1) {
+                        byteArrayOutputStream.write(buffer, 0, bytesRead);
                     }
 
-                    // Send a response back to the client
-                    String response = "Hello from the server!";
+                    String publicKey = byteArrayOutputStream.toString("UTF-8");
+
+                    // Print the received public key
+                    System.out.println("Received public key:\n" + publicKey);
+
+                    // Save the public key to a file
+                    String publicKeyFilePath = "C:\\Users\\gmw10\\Desktop\\received_public_key.asc";
+                    try (Writer writer = new BufferedWriter(new FileWriter(publicKeyFilePath))) {
+                        writer.write(publicKey);
+                    }
+
+                    // Send a response back to the client (optional)
+                    String response = "Public key received successfully!";
                     OutputStream output = socket.getOutputStream();
                     output.write(response.getBytes());
                 } catch (IOException e) {
