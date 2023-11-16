@@ -1,7 +1,8 @@
+/*
 import java.io.*;
 import java.net.Socket;
 
-public class Client {
+public class WilsonA2Client {
     public static void main(String[] args) {
         final String serverAddress = "localhost";
         final int portNumber = 12123;
@@ -13,7 +14,7 @@ public class Client {
             System.out.println("Sending public key");
 
             // Read the content of the .asc public key file
-            String publicKeyFilePath = "C:\Users\gmw10\Desktop\my_public_key.asc";
+            String publicKeyFilePath = "/Desktop/Craig_Benjamin_(6FA3BCD0)–Public";
             String publicKeyContent = readPublicKey(publicKeyFilePath);
 
             // Send the public key content to the server
@@ -46,3 +47,5 @@ public class Client {
         return content.toString();
     }
 }
+
+*/
