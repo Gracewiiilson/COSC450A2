@@ -1,59 +1,49 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import java.lang.Math;
 
 public class Server {
 
-    private static DataInputStream input;
-    private static DataOutputStream output;
+    private final static int portNum = 12123;
+    private final static String server_pubKey = ".\\server_public_key.asc"; //not sure about these
+    private final static String client_pubKey = ".\\keys\\key_from_client.txt";
 
-    private static FileInputStream fileInput;
+    private static DataInputStream in;
+    private static DataOutputStream out;
 
-    private static FileOutputStream fileOutput;
+    private static void receiveFile(String fileName) throws Exception {
+        int numBytes = 0;
+        byte[] buffer = new byte[4 * 1024];
+        long size = in.readLong();
+        FileOutputStream fileOutput = new FileOutputStream(fileName);
 
-    private final static int PORT = 12123;
-
-
-    private final static String public_key_directive = ".\\server_public_key.asc"; //not sure about these
-    private final static String client_public_key_directive = ".\\keys\\key_from_client.txt";
+        while((size > 0) && (numBytes = in.read(buffer,0, (int)Math.min(buffer.length, size))) != -1){
+            fileOutput.write(buffer, 0, numBytes);
+            size = (size - numBytes);
+        }
+        System.out.println("Public key has been received from client.");
+    }
 
     public static void main(String[] args){
-        try(ServerSocket serverSocket = new ServerSocket(PORT)){
+        try(ServerSocket serverSocket = new ServerSocket(portNum)){
             System.out.println("Waiting for the client ...");
 
             Socket clientSocket = serverSocket.accept();
             System.out.println("Connected");
 
-            input = new DataInputStream(clientSocket.getInputStream());
-            output = new DataOutputStream(clientSocket.getOutputStream());
+            in = new DataInputStream(clientSocket.getInputStream());
 
-            receiveFile(client_public_key_directive);
+            out = new DataOutputStream(clientSocket.getOutputStream());
+
+            receiveFile(client_pubKey);
 
             clientSocket.close();
-            input.close();
-            output.close();
+            in.close();
+            out.close();
         }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        catch(Exception e) { e.printStackTrace(); }
 
     }
 
-    private static void receiveFile(String filename) throws Exception {
-        int bytes = 0;
-        FileOutputStream fileOutput = new FileOutputStream(filename);
-
-        long size = input.readLong();
-
-        byte[] buffer = new byte[4 * 1024];
-
-        while((size > 0) && (bytes = input.read(buffer,0, (int)Math.min(buffer.length, size))) != -1){
-            fileOutput.write(buffer, 0, bytes);
-            size -= bytes;
-        }
-
-        System.out.println("Client public key received.");
-    }
 }
